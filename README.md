@@ -28,4 +28,15 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Dockerisation
 
-* `docker built -t qiuyangnie/riverfort-dashboard:v2.0.4 .`
+* `docker built -t <username_docker>/riverfort-dashboard:<version> .`
+* `docker push <username_docker>/riverfort-dashboard:<version> .`
+* Example:
+  * `docker built -t rgctech/riverfort-dashboard:v3.0.0 .`
+  * `docker push rgctech/riverfort-dashboard:v3.0.0`
+
+## Deployment
+* Connect to riverfort-dashboard instance
+* `docker run -d --name riverfort-dashboard-<version> -p 80:8080 <username_docker>/riverfort-dashboard:<version>`
+* Example:
+  * `docker run -d --name riverfort-dashboard-v3.0.0 -p 80:8080 rgctech/riverfort-dashboard:v3.0.0`
+* Update the CHANGELOG.md
