@@ -1,0 +1,10 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{companyName}} ({{companyTicker}})</mat-card-title>
+    <mat-card-subtitle>{{exchange}}. Currency in {{currency}}</mat-card-subtitle>
+    <div class="other-info">
+      <mat-card-title>{{cap | currency:(currency | uppercase):'symbol':'4.0-0'}}</mat-card-title>
+      <mat-card-subtitle>{{price | currency:(currency | uppercase)}}</mat-card-subtitle>
+    </div>
+  </mat-card-header>
+</mat-card>

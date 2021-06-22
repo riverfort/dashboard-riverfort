@@ -1,0 +1,13 @@
+.component-wrapper {
+  display: block;
+  border: 1px solid rgba(0,0,0,.2);
+  border-radius: 10px;
+  margin: 5px;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 50%;
+  padding-left: 10px;
+  padding-top: 10px;
+}

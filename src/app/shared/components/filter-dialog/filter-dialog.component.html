@@ -1,0 +1,138 @@
+<h2 mat-dialog-title>Filters</h2>
+<mat-dialog-content>
+  <mat-horizontal-stepper labelPosition="bottom" #stepper>
+    <!-- <mat-step [stepControl]="firstFormGroup" optional>
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Industry</ng-template>
+        <mat-form-field class="industry">
+          <mat-label>Industry</mat-label>
+          <input matInput formControlName="firstCtrl" placeholder="Ex. materials" [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+              {{ option }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step> -->
+
+    <!-- <mat-step [stepControl]="secondFormGroup" optional>
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Mkt Cap Range</ng-template>
+        <mat-form-field>
+          <mat-label>MIN Mkt Cap</mat-label>
+          <input matInput formControlName="secondCtrl" placeholder="Ex. Min mkt cap">
+        </mat-form-field>
+        <span style="margin: 10px;"></span>
+        <mat-form-field>
+          <mat-label>MAX Mkt Cap</mat-label>
+          <input matInput formControlName="thirdCtrl" placeholder="Ex. MAX mkt cap">
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step> -->
+
+    <mat-step [stepControl]="exchangeFormGroup" optional>
+      <form [formGroup]="exchangeFormGroup">
+        <ng-template matStepLabel>Exchange</ng-template>
+        <mat-form-field>
+          <mat-label>Exchange</mat-label>
+          <mat-select formControlName="exchangeCtrl">
+            <mat-option value="Amsterdam">Amsterdam</mat-option>
+            <mat-option value="ASX">ASX</mat-option>
+            <mat-option value="Brussels">Brussels</mat-option>
+            <mat-option value="LSE">LSE</mat-option>
+            <mat-option value="NASDAQ Capital Market">NASDAQ Capital Market</mat-option>
+            <mat-option value="NASDAQ Global Market">NASDAQ Global Market</mat-option>
+            <mat-option value="Nasdaq Global Select">Nasdaq Global Select</mat-option>
+            <mat-option value="New York Stock Exchange">New York Stock Exchange</mat-option>
+            <mat-option value="OSE">OSE</mat-option>
+            <mat-option value="Oslo">Oslo</mat-option>
+            <mat-option value="Paris">Paris</mat-option>
+            <mat-option value="SIX">SIX</mat-option>
+            <mat-option value="Swiss">Swiss</mat-option>
+            <mat-option value="TSE">TSE</mat-option>
+            <mat-option value="TSX">TSX</mat-option>
+            <mat-option value="XETRA">XETRA</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <!-- <div>
+          <button mat-button matStepperNext>Next</button>
+        </div> -->
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="industryFormGroup" optional>
+      <form [formGroup]="industryFormGroup">
+        <ng-template matStepLabel>Industry</ng-template>
+        <mat-form-field class="industry">
+          <mat-label>Industry</mat-label>
+          <input matInput formControlName="industryCtrl" placeholder="Ex. materials" [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let option of filteredIndustryOptions | async" [value]="option">
+              {{ option }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <!-- <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div> -->
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="mktCapFormGroup" optional>
+      <form [formGroup]="mktCapFormGroup">
+        <ng-template matStepLabel>Mkt Cap Range</ng-template>
+        <mat-form-field>
+          <mat-label>Min</mat-label>
+          <input matInput formControlName="minMktCapCtrl" placeholder="Ex. min">
+        </mat-form-field>
+        <span style="margin: 10px;"></span>
+        <mat-form-field>
+          <mat-label>Max</mat-label>
+          <input matInput formControlName="maxMktCapCtrl" placeholder="Ex. max">
+        </mat-form-field>
+        <!-- <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div> -->
+      </form>
+    </mat-step>
+
+
+    <mat-step [stepControl]="adtv20FormGroup" optional>
+      <form [formGroup]="adtv20FormGroup">
+        <ng-template matStepLabel>ADTV 20</ng-template>
+        <mat-form-field>
+          <mat-label>ADTV 20</mat-label>
+          <mat-select formControlName="adtv20Ctrl">
+            <mat-option value="1000">< 1K</mat-option>
+            <mat-option value="10000">< 10K</mat-option>
+            <mat-option value="100000">< 100K</mat-option>
+            <mat-option value="1000000">< 1M</mat-option>
+            <mat-option value="10000000">< 10M</mat-option>
+            <mat-option value="100000000">< 100M</mat-option>
+            <mat-option value="1000000000">< 1B</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+    </mat-step>
+
+
+  </mat-horizontal-stepper>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancelClick()">Cancel</button>
+  <button mat-button (click)="stepper.reset()">Reset</button>
+  <button mat-button 
+  color="primary" 
+  cdkFocusInitial 
+  (click)="onSaveClick()">Filter</button>
+</mat-dialog-actions>

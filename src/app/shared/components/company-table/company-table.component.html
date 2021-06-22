@@ -1,0 +1,227 @@
+<div class="component-wrapper">
+
+<div class="component-top">
+  <mat-form-field>
+    <mat-label>Filter for Symbols or Companies</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. iro" autocomplete="off" #input>
+  </mat-form-field>
+
+  <div class="tools-area">
+    <button mat-stroked-button color="primary" [matMenuTriggerFor]="menu" aria-label="Filter mkt cap button" style="margin-right: 2px;" matTooltip="Mkt Cap filter" matBadge="1" matBadgePosition="before" matBadgeColor="primary" [matBadgeHidden]="hiddenMktCapBadge">
+      <span class="material-icons-round">
+        filter_list
+      </span>
+    </button>
+    <button mat-stroked-button class="csv-all" color="primary" (click)="export_csv();" matTooltip="Download (.csv)">
+      <span class="material-icons-round">
+        download
+      </span>
+    </button>
+  </div>
+</div>
+
+<div class="table-wrapper">
+<div class="mat-elevation-z2">
+  <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8" matSort>
+
+    <ng-container matColumnDef="company_ticker">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Symbol </th>
+      <td mat-cell *matCellDef="let element" class="ticker">
+          {{element.company_ticker}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="company_name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Company </th>
+      <td mat-cell *matCellDef="let element">
+          {{element.company_name}} 
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="exchange">
+      <th mat-header-cell *matHeaderCellDef> Exchange </th>
+      <td mat-cell *matCellDef="let element" class="exchange"> {{element.exchange}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="change_percent">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> % Change </th>
+      <td mat-cell *matCellDef="let element" [ngStyle]="{'color': element.change_percent >= 0 ? 'green' : 'red'}" class="change"> {{ element.change_percent }}%</td>
+    </ng-container>
+
+    <ng-container matColumnDef="adtv5">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> ADTV5 </th>
+      <td mat-cell *matCellDef="let element" class="mkt_cap"> {{ element.adtv5 | currency:(element.currency | uppercase):'symbol':'4.0-0' }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="adtv10">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> ADTV10 </th>
+      <td mat-cell *matCellDef="let element" class="mkt_cap"> {{ element.adtv10 | currency:(element.currency | uppercase):'symbol':'4.0-0' }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="market_cap">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Mkt Cap </th>
+      <td mat-cell *matCellDef="let element" class="mkt_cap"> {{ element.market_cap | currency:(element.currency | uppercase):'symbol':'4.0-0' }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="industry">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Industry </th>
+      <td mat-cell *matCellDef="let element"> 
+        {{element.industry}}
+      </td>
+    </ng-container>
+
+    <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+    <ng-container matColumnDef="expandedDetail">
+      <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+        <div class="element-detail"
+             [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+          <div class="element-diagram">
+            <div class="element-name"> {{element.company_name}} </div>
+            <div class="element-ticker"> {{element.company_ticker}} </div>
+            <div class="element-isin"> 
+              <span class="isin-label">ISIN: </span> {{element.isin || 'N/A'}} 
+            </div>
+            <div class="element-exchange"> {{element.exchange}} </div>
+          </div>
+
+          <div class="element-data-wrapper">
+            <div class=element-data>
+              <div class="vl"></div>
+
+              <div class="time-close-manager">
+                <table>
+                  <tr>
+                    <td>{{element.market_date | date: 'short'}}</td>
+                  </tr>
+                  <tr>
+                    <td>{{element.am_uid}}</td>
+                  </tr>
+                </table>
+              </div>
+
+              <div class="vl"></div>
+
+              <div class="open-high-low">
+                <table>
+                  <tr>
+                    <td>Open</td>
+                    <td>{{element.open | currency:element.currency}}</td>
+                  </tr>
+                  <tr>
+                    <td>High</td>
+                    <td>{{element.high | currency:element.currency}}</td>
+                  </tr>
+                  <tr>
+                    <td>Low</td>
+                    <td>{{element.low | currency:element.currency}}</td>
+                  </tr>
+                </table>
+              </div>
+              <div class="vl"></div>
+              <div class="vol-vwap-cap">
+                <table>
+                  <tr>
+                    <td>Vol</td>
+                    <td>{{element.volume | number: '1.0-0'}}</td>
+                  </tr>
+                  <tr>
+                    <td>VWAP</td>
+                    <td>{{(element.vwap | currency:element.currency) || 'N/A'}}</td>
+                  </tr>
+                  <tr>
+                    <td>Mkt Cap</td>
+                    <td>{{element.market_cap | currency:(element.currency | uppercase):'symbol':'4.0-0'}}</td>
+                  </tr>
+                </table>
+              </div>
+              <div class="vl"></div>
+              <div class="adtv-aadtv">
+                <table>
+                  <thead>
+                    <tr>
+                      <td></td>
+                      <td>1</td>
+                      <td>5</td>
+                      <td>10</td>
+                      <td>20</td>
+                      <td>60</td>
+                      <td>120</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>ADTV</td>
+                      <td>{{element.adtv | number:'4.0-0'}}</td>
+                      <td>{{element.adtv5 | number:'4.0-0'}}</td>
+                      <td>{{element.adtv10 | number:'4.0-0'}}</td>
+                      <td>{{element.adtv20 | number:'4.0-0'}}</td>
+                      <td>{{element.adtv60 | number:'4.0-0'}}</td>
+                      <td>{{element.adtv120 | number:'4.0-0'}}</td>
+                    </tr>
+                    <tr>
+                      <td>AADTV</td>
+                      <td>{{(element.aadtv | number:'4.0-0') || '- -'}}</td>
+                      <td>{{(+element.aadtv5 | number:'4.0-0')  || '- -'}}</td>
+                      <td>{{(+element.aadtv10 | number:'4.0-0') || '- -'}}</td>
+                      <td>{{(+element.aadtv20 | number:'4.0-0') || '- -'}}</td>
+                      <td>{{(+element.aadtv60 | number:'4.0-0') || '- -'}}</td>
+                      <td>{{(+element.aadtv120 | number:'4.0-0') || '- -'}}</td>
+                    </tr>
+                  </tbody>
+                </table>              
+              </div>
+              <div class="vl"></div>
+              <div>
+                <button mat-stroked-button color="accent" class="viewChartsButton" (click)="openDetailsDialog(element.company_ticker)">
+                  <div class="icon-text">
+                    <span class="material-icons-round">
+                      show_chart
+                    </span>
+                  </div>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+        class="element-row"
+        [class.expanded-row]="expandedElement === row"
+        (click)="expandedElement = expandedElement === row ? null : row">
+    </tr>
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
+  </table>
+
+  <mat-paginator (page)="onPaginateChange($event)" [pageSizeOptions]="[50, 100, 200]" showFirstLastButtons></mat-paginator>
+</div>
+
+</div>
+
+</div>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="mktCapFilter('reset');">
+    <span>Reset</span>
+  </button>
+  <button mat-menu-item (click)="mktCapFilter('>200B');">
+    <span>Mega (>200B)</span>
+  </button>
+  <button mat-menu-item (click)="mktCapFilter('10B-200B');">
+    <span>Large (10B-200B)</span>
+  </button>
+  <button mat-menu-item (click)="mktCapFilter('2B-10B');">
+    <span>Medium (2B-10B)</span>
+  </button>
+  <button mat-menu-item (click)="mktCapFilter('300M-2B');">
+    <span>Small (300M-2B)</span>
+  </button>
+  <button mat-menu-item (click)="mktCapFilter('50M-300M');">
+    <span>Micro (50M-300M)</span>
+  </button>
+  <button mat-menu-item (click)="mktCapFilter('<50M');">
+    <span>Nano (<50M)</span>
+  </button>
+</mat-menu>

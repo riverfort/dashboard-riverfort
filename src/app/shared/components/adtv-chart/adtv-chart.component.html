@@ -1,0 +1,82 @@
+<div class="component-wrapper">
+    <button
+      (click)="updateOptions( '5d' )"
+      [class.active]="activeOptionButton=='5d'"
+    >
+      5D
+    </button>
+    <button
+      (click)="updateOptions( '1m' )"
+      [class.active]="activeOptionButton=='1m'"
+    >
+      1M
+    </button>
+    <button
+      (click)="updateOptions( '2m' )"
+      [class.active]="activeOptionButton=='2m'"
+    >
+      2M
+    </button>
+    <button
+      (click)="updateOptions( '3m' )"
+      [class.active]="activeOptionButton=='3m'"
+    >
+      3M
+    </button>
+    <!-- <button
+      (click)="updateOptions( '1yd' )"
+      [class.active]="activeOptionButton=='1yd'"
+    >
+      1YD
+    </button> -->
+    <button
+      (click)="updateOptions( 'all' )"
+      [class.active]="activeOptionButton=='all'"
+    >
+      All
+    </button>
+    <!-- <button
+      (click)="updateOptions( '1m' )"
+      [class.active]="activeOptionButton=='1m'"
+    >
+      1M
+    </button>
+    <button
+      (click)="updateOptions( '6m' )"
+      [class.active]="activeOptionButton=='6m'"
+    >
+      6M
+    </button>
+    <button
+      (click)="updateOptions( '1y' )"
+      [class.active]="activeOptionButton=='1y'"
+    >
+      1Y
+    </button>
+    <button
+      (click)="updateOptions( '1yd' )"
+      [class.active]="activeOptionButton=='1yd'"
+    >
+      1YD
+    </button>
+    <button
+      (click)="updateOptions( 'all' )"
+      [class.active]="activeOptionButton=='all'"
+    >
+      All
+    </button> -->
+    <apx-chart #chartObj
+      id="chartObj"
+      [series]="chartOptions.series"
+      [chart]="chartOptions.chart"
+      [colors]="chartOptions.colors"
+      [dataLabels]="chartOptions.dataLabels"
+      [markers]="chartOptions.markers"
+      [stroke]="chartOptions.stroke"
+      [xaxis]="chartOptions.xaxis"
+      [yaxis]="chartOptions.yaxis"
+      [tooltip]="chartOptions.tooltip"
+      [annotations]="chartOptions.annotations"
+      [noData]="chartOptions.noData"
+    ></apx-chart>
+</div>

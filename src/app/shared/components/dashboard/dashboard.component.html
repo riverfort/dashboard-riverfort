@@ -1,0 +1,158 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+    <mat-toolbar><mat-icon>menu_open</mat-icon></mat-toolbar>
+
+    <mat-nav-list>
+      <a mat-list-item routerLink="search" routerLinkActive="active">
+        Search
+      </a>
+      <a mat-list-item routerLink="filter" routerLinkActive="active">
+        Filter
+      </a>
+      <a mat-list-item routerLink="company" routerLinkActive="active">
+        Full List
+      </a>
+      <a mat-list-item [matMenuTriggerFor]="exchanges" [routerLink]="['exchange']" routerLinkActive="active">
+        Exchange
+      </a>
+      <a mat-list-item [matMenuTriggerFor]="regions" [routerLink]="['region']" routerLinkActive="active">
+        Region/Country
+      </a>
+      <!-- <a mat-list-item routerLink="test" routerLinkActive="active">
+        Test(Old Full List)
+      </a> -->
+    </mat-nav-list>
+
+    <!-- <mat-selection-list [multiple]="false" role="navigation">
+      <mat-list-option>
+        <a routerLink="company" routerLinkActive="active">Company List</a>
+      </mat-list-option>
+      <mat-list-option [matMenuTriggerFor]="exchanges">Exchange</mat-list-option>
+      <mat-list-option [matMenuTriggerFor]="regions">Region/Country</mat-list-option>
+    </mat-selection-list> -->
+
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar class="mat-elevation-z4" color="primary" style="width: 100%;">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>RiverFort Dashboard</span>
+      <span class="example-spacer"></span>
+      <button mat-stroked-button (click)="logout();" color="warn">
+        Log Out
+      </button>
+    </mat-toolbar>
+    <!-- Add Content Here -->
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+
+
+<mat-menu #exchanges="matMenu" xPosition="after" yPosition="below">
+  <a mat-menu-item [routerLink]="['exchange', 'Amsterdam']" routerLinkActive="active">Amsterdam</a>
+  <a mat-menu-item [routerLink]="['exchange', 'ASX']" routerLinkActive="active">ASX</a>
+  <a mat-menu-item [routerLink]="['exchange', 'Brussels']" routerLinkActive="active">Brussels</a>
+  <a mat-menu-item [routerLink]="['exchange', 'LSE']" routerLinkActive="active">LSE</a>
+  <a mat-menu-item [routerLink]="['exchange', 'NASDAQ Capital Market']" routerLinkActive="active">NASDAQ Capital Market</a>
+  <a mat-menu-item [routerLink]="['exchange', 'NASDAQ Global Market']" routerLinkActive="active">NASDAQ Global Market</a>
+  <a mat-menu-item [routerLink]="['exchange', 'Nasdaq Global Select']" routerLinkActive="active">Nasdaq Global Select</a>
+  <a mat-menu-item [routerLink]="['exchange', 'New York Stock Exchange']" routerLinkActive="active">New York Stock Exchange</a>
+  <!-- <a mat-menu-item [routerLink]="['exchange', 'NMS']" routerLinkActive="active">NMS</a>
+  <a mat-menu-item [routerLink]="['exchange', 'NYSE']" routerLinkActive="active">NYSE</a>
+  <a mat-menu-item [routerLink]="['exchange', 'NYSE American']" routerLinkActive="active">NYSE American</a> -->
+  <a mat-menu-item [routerLink]="['exchange', 'OSE']" routerLinkActive="active">OSE</a>
+  <a mat-menu-item [routerLink]="['exchange', 'Oslo']" routerLinkActive="active">Oslo</a>
+  <a mat-menu-item [routerLink]="['exchange', 'Paris']" routerLinkActive="active">Paris</a>
+  <a mat-menu-item [routerLink]="['exchange', 'SIX']" routerLinkActive="active">SIX</a>
+  <a mat-menu-item [routerLink]="['exchange', 'Swiss']" routerLinkActive="active">Swiss</a>
+  <a mat-menu-item [routerLink]="['exchange', 'TSE']" routerLinkActive="active">TSE</a>
+  <a mat-menu-item [routerLink]="['exchange', 'TSX']" routerLinkActive="active">TSX</a>
+  <a mat-menu-item [routerLink]="['exchange', 'XETRA']" routerLinkActive="active">XETRA</a>
+</mat-menu>
+
+<mat-menu #regions="matMenu" xPosition="after" yPosition="below">
+  <a mat-menu-item [matMenuTriggerFor]="asiaPacific"  [routerLink]="['region/asia-pacific']"  routerLinkActive="active">Asia Pacific</a>
+  <a mat-menu-item [matMenuTriggerFor]="africa"       [routerLink]="['region/africa']"        routerLinkActive="active">Africa</a>
+  <a mat-menu-item [matMenuTriggerFor]="europe"       [routerLink]="['region/europe']"        routerLinkActive="active">Europe</a>
+  <a mat-menu-item [matMenuTriggerFor]="northAmerica" [routerLink]="['region/north-america']" routerLinkActive="active">North America</a>
+  <a mat-menu-item [matMenuTriggerFor]="southAmerica" [routerLink]="['region/south-america']" routerLinkActive="active">South America</a>
+  <a mat-menu-item [routerLink]="['region/country', 'GB']" routerLinkActive="active">U.K.</a>
+</mat-menu>
+
+<mat-menu #asiaPacific="matMenu" xPosition="after" yPosition="below">
+  <a mat-menu-item [routerLink]="['region/country', 'AZ']" routerLinkActive="active">Azerbaijan</a>
+  <a mat-menu-item [routerLink]="['region/country', 'AU']" routerLinkActive="active">Australia</a>
+  <a mat-menu-item [routerLink]="['region/country', 'BD']" routerLinkActive="active">Bangladesh</a>
+  <a mat-menu-item [routerLink]="['region/country', 'CN']" routerLinkActive="active">China</a>
+  <a mat-menu-item [routerLink]="['region/country', 'CY']" routerLinkActive="active">Cyprus</a>
+  <a mat-menu-item [routerLink]="['region/country', 'HK']" routerLinkActive="active">Hong Kong</a>
+  <a mat-menu-item [routerLink]="['region/country', 'IN']" routerLinkActive="active">India</a>
+  <a mat-menu-item [routerLink]="['region/country', 'IL']" routerLinkActive="active">Israel</a>
+  <a mat-menu-item [routerLink]="['region/country', 'KR']" routerLinkActive="active">Korea</a>
+  <a mat-menu-item [routerLink]="['region/country', 'MY']" routerLinkActive="active">Malaysia</a>
+  <a mat-menu-item [routerLink]="['region/country', 'MN']" routerLinkActive="active">Mongolia</a>
+  <a mat-menu-item [routerLink]="['region/country', 'NZ']" routerLinkActive="active">New Zealand</a>
+  <a mat-menu-item [routerLink]="['region/country', 'PG']" routerLinkActive="active">Papua New Guinea</a>
+  <a mat-menu-item [routerLink]="['region/country', 'SG']" routerLinkActive="active">Singapore</a>
+  <a mat-menu-item [routerLink]="['region/country', 'SB']" routerLinkActive="active">Solomon Islands</a>
+  <a mat-menu-item [routerLink]="['region/country', 'Taiwan']" routerLinkActive="active">Taiwan</a>
+  <a mat-menu-item [routerLink]="['region/country', 'TH']" routerLinkActive="active">Thailand</a>
+  <a mat-menu-item [routerLink]="['region/country', 'AE']" routerLinkActive="active">United Arab Emirates</a>
+</mat-menu>
+
+<mat-menu #africa="matMenu" xPosition="after" yPosition="below">
+  <a mat-menu-item [routerLink]="['region/country', 'MU']" routerLinkActive="active">Mauritius</a>
+  <a mat-menu-item [routerLink]="['region/country', 'NG']" routerLinkActive="active">Nigeria</a>
+  <a mat-menu-item [routerLink]="['region/country', 'ZA']" routerLinkActive="active">South Africa</a>
+  <a mat-menu-item [routerLink]="['region/country', 'TG']" routerLinkActive="active">Togo</a>
+  <a mat-menu-item [routerLink]="['region/country', 'ZM']" routerLinkActive="active">Zambia</a>
+</mat-menu>
+
+<mat-menu #europe="matMenu" xPosition="after" yPosition="below">
+  <a mat-menu-item [routerLink]="['region/country', 'AT']" routerLinkActive="active">Austria</a>
+  <a mat-menu-item [routerLink]="['region/country', 'BE']" routerLinkActive="active">Belgium</a>
+  <a mat-menu-item [routerLink]="['region/country', 'DK']" routerLinkActive="active">Denmark</a>
+  <a mat-menu-item [routerLink]="['region/country', 'FI']" routerLinkActive="active">Finland</a>
+  <a mat-menu-item [routerLink]="['region/country', 'FR']" routerLinkActive="active">France</a>
+  <a mat-menu-item [routerLink]="['region/country', 'DE']" routerLinkActive="active">Germany</a>
+  <a mat-menu-item [routerLink]="['region/country', 'GI']" routerLinkActive="active">Gibraltar</a>
+  <a mat-menu-item [routerLink]="['region/country', 'GG']" routerLinkActive="active">Guernsey</a>
+  <a mat-menu-item [routerLink]="['region/country', 'IE']" routerLinkActive="active">Ireland</a>
+  <a mat-menu-item [routerLink]="['region/country', 'IM']" routerLinkActive="active">Isle of Man</a>
+  <a mat-menu-item [routerLink]="['region/country', 'IT']" routerLinkActive="active">Italy</a>
+  <a mat-menu-item [routerLink]="['region/country', 'JE']" routerLinkActive="active">Jersey</a>
+  <a mat-menu-item [routerLink]="['region/country', 'LU']" routerLinkActive="active">Luxembourg</a>
+  <a mat-menu-item [routerLink]="['region/country', 'MT']" routerLinkActive="active">Malta</a>
+  <a mat-menu-item [routerLink]="['region/country', 'NL']" routerLinkActive="active">Netherlands</a>
+  <a mat-menu-item [routerLink]="['region/country', 'NO']" routerLinkActive="active">Norway</a>
+  <a mat-menu-item [routerLink]="['region/country', 'PL']" routerLinkActive="active">Poland</a>
+  <a mat-menu-item [routerLink]="['region/country', 'RU']" routerLinkActive="active">Russia</a>
+  <a mat-menu-item [routerLink]="['region/country', 'ES']" routerLinkActive="active">Spain</a>
+  <a mat-menu-item [routerLink]="['region/country', 'SE']" routerLinkActive="active">Sweden</a>
+  <a mat-menu-item [routerLink]="['region/country', 'CH']" routerLinkActive="active">Switzerland</a>
+  <a mat-menu-item [routerLink]="['region/country', 'GB']" routerLinkActive="active">U.K.</a> 
+  <a mat-menu-item [routerLink]="['region/country', 'UA']" routerLinkActive="active">Ukraine</a> 
+</mat-menu>
+
+<mat-menu #northAmerica="matMenu" xPosition="after" yPosition="below">
+  <a mat-menu-item [routerLink]="['region/country', 'BM']" routerLinkActive="active">Bermuda</a>
+  <a mat-menu-item [routerLink]="['region/country', 'VG']" routerLinkActive="active">British Virgin Islands</a>
+  <a mat-menu-item [routerLink]="['region/country', 'CA']" routerLinkActive="active">Canada</a>
+  <a mat-menu-item [routerLink]="['region/country', 'KY']" routerLinkActive="active">Cayman Islands</a>
+  <a mat-menu-item [routerLink]="['region/country', 'US']" routerLinkActive="active">U.S.</a>
+</mat-menu>
+
+<mat-menu #southAmerica="matMenu" xPosition="after" yPosition="below">
+  <a mat-menu-item [routerLink]="['region/country', 'CL']" routerLinkActive="active">Chile</a>
+  <a mat-menu-item [routerLink]="['region/country', 'FK']" routerLinkActive="active">Falkland Islands (Malvinas)</a>
+</mat-menu>

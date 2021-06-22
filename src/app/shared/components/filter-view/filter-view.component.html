@@ -1,0 +1,9 @@
+<mat-toolbar color="primary" class="mat-elevation-z4">
+  <button mat-icon-button aria-label="Filter button" matTooltip="Click to set filters" (click)="openFilterDialog()">
+    <mat-icon>rule</mat-icon>
+  </button>
+  <span class="filter-title">Filter</span>
+  <span class="example-spacer"></span>
+  <app-filter-chips [selectedFilters]="selectedFilters"></app-filter-chips>
+</mat-toolbar>
+<router-outlet></router-outlet>

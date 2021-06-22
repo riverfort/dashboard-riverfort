@@ -1,0 +1,38 @@
+<div class="header center">Create your RiverFort Portal Account</div>
+
+<form [formGroup]="registerForm" (ngSubmit)="register()">
+
+  <mat-form-field>
+    <mat-label>Enter your email</mat-label>
+    <input matInput placeholder="pat@foo.com" formControlName="email" id="email" autocomplete="off" required>
+    <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+  </mat-form-field>
+
+  <table cellspacing="0"><tr>
+    <td><mat-form-field class="username">
+      <mat-label>First name</mat-label>
+      <input matInput formControlName="first_name" autocomplete="off" required>
+    </mat-form-field></td>
+    <td><mat-form-field class="username">
+      <mat-label>Last Name</mat-label>
+      <input matInput formControlName="last_name" autocomplete="off" required>
+    </mat-form-field></td>
+  </tr></table>
+
+  <mat-form-field>
+    <mat-label>Enter your password</mat-label>
+    <input matInput [type]="hide ? 'password' : 'text'" id="password" placeholder="Password" formControlName="password" required>
+    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <div class="actions">
+    <button mat-raised-button color="primary" type="submit" [disabled]="!registerForm.valid">Sign up</button>
+  </div>
+
+  <div class="login">
+    <a mat-button color="primary" routerLink="/login">login instead</a>
+  </div>
+
+</form>

@@ -1,0 +1,112 @@
+<div class="component-wrapper">
+  <div class="element-detail">
+    <div class="element-diagram">
+      <div class="element-name"> {{company_name}} </div>
+      <div class="element-ticker"> {{company_ticker}} </div>
+      <div class="element-isin"> 
+        <span class="isin-label">ISIN: </span> {{isin || 'N/A'}} 
+      </div>
+      <div class="element-exchange"> {{exchange}} </div>
+    </div>
+
+    <div class="element-data-wrapper">
+      <div class=element-data>
+        <div class="vl"></div>
+
+        <div class="time-manager">
+          <table>
+            <tr>
+              <td>{{market_date | date: 'short'}}</td>
+            </tr>
+            <tr>
+              <td>{{am_uid}}</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="vl"></div>
+
+        <div class="change">
+          <table>
+            <tr>
+              <td [ngStyle]="{'color': change_percent >= 0 ? 'green' : 'red'}">{{ change_percent }}%</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="vl"></div>
+
+        <div class="open-high-low">
+          <table>
+            <tr>
+              <td>Open</td>
+              <td>{{open | currency:currency}}</td>
+            </tr>
+            <tr>
+              <td>High</td>
+              <td>{{high | currency:currency}}</td>
+            </tr>
+            <tr>
+              <td>Low</td>
+              <td>{{low | currency:currency}}</td>
+            </tr>
+          </table>
+        </div>
+        <div class="vl"></div>
+        <div class="vol-vwap-cap">
+          <table>
+            <tr>
+              <td>Vol</td>
+              <td>{{volume | number: '1.0-0'}}</td>
+            </tr>
+            <tr>
+              <td>VWAP</td>
+              <td>{{(vwap | currency:currency) || 'N/A'}}</td>
+            </tr>
+            <tr>
+              <td>Mkt Cap</td>
+              <td>{{market_cap | currency:(currency | uppercase):'symbol':'4.0-0'}}</td>
+            </tr>
+          </table>
+        </div>
+        <div class="vl"></div>
+        <div class="adtv-aadtv">
+          <table>
+            <thead>
+              <tr>
+                <td></td>
+                <td>1</td>
+                <td>5</td>
+                <td>10</td>
+                <td>20</td>
+                <td>60</td>
+                <td>120</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>ADTV</td>
+                <td>{{adtv | number:'4.0-0'}}</td>
+                <td>{{adtv5 | number:'4.0-0'}}</td>
+                <td>{{adtv10 | number:'4.0-0'}}</td>
+                <td>{{adtv20 | number:'4.0-0'}}</td>
+                <td>{{adtv60 | number:'4.0-0'}}</td>
+                <td>{{adtv120 | number:'4.0-0'}}</td>
+              </tr>
+              <tr>
+                <td>AADTV</td>
+                <td>{{(aadtv | number:'4.0-0') || '- -'}}</td>
+                <td>{{(+aadtv5 | number:'4.0-0')  || '- -'}}</td>
+                <td>{{(+aadtv10 | number:'4.0-0') || '- -'}}</td>
+                <td>{{(+aadtv20 | number:'4.0-0') || '- -'}}</td>
+                <td>{{(+aadtv60 | number:'4.0-0') || '- -'}}</td>
+                <td>{{(+aadtv120 | number:'4.0-0') || '- -'}}</td>
+              </tr>
+            </tbody>
+          </table>              
+        </div>
+        <div class="vl"></div>
+      </div>
+    </div>
+  </div>
+</div>

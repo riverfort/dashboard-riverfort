@@ -1,0 +1,35 @@
+<div class="component-wrapper">
+  <mat-tab-group>
+      <mat-tab label="Price">
+        <ng-template matTabContent>
+          <!-- <app-adtv-chart [symbol]="symbol"></app-adtv-chart> -->
+          <app-price-chart [symbol]="symbol"></app-price-chart>
+        </ng-template>
+      </mat-tab>
+      <mat-tab label="Price & Volume">
+        <ng-template matTabContent>
+          <app-trading-chart [symbol]="symbol"></app-trading-chart>
+        </ng-template>
+      </mat-tab>
+      <mat-tab label="ADTV 20">
+        <ng-template matTabContent>
+          <app-adtv-chart [symbol]="symbol"></app-adtv-chart>
+        </ng-template>
+      </mat-tab>
+      <!-- <mat-tab label="AADTV">
+        <ng-template matTabContent>
+          <app-aadtv-chart [symbol]="symbol"></app-aadtv-chart>
+        </ng-template>
+      </mat-tab> -->
+      <mat-tab label="Historical Data">
+        <ng-template matTabContent>
+          Content 3 - Loaded: {{getTimeLoaded(3) | date:'medium'}}
+        </ng-template>
+      </mat-tab>
+      <mat-tab label="Profile">
+        <ng-template matTabContent>
+          Content 4 - Loaded: {{getTimeLoaded(3) | date:'medium'}}
+        </ng-template>
+      </mat-tab>
+  </mat-tab-group>
+</div>
